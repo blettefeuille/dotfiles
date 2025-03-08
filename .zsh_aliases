@@ -1,0 +1,20 @@
+# Aliases for eza
+alias ls="eza --icons --color=auto -F"
+alias ll="eza --icons --long --git --color=auto -F"
+alias la="eza --icons --long --git --all --color=auto -F"
+alias lt="eza --icons --tree --color=auto -F"
+alias l="eza --icons --oneline ---color=auto -F"
+
+# General aliases
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -iv"
+alias df="df -h"
+alias du="du -h"
+alias grep="grep --color=auto"
+alias diff="diff --color=auto"
+
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
