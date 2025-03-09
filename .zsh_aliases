@@ -1,9 +1,10 @@
 # Aliases for eza
-alias ls="eza --icons --color=auto -F"
-alias ll="eza --icons --long --git --color=auto -F"
-alias la="eza --icons --long --git --all --color=auto -F"
-alias lt="eza --icons --tree --color=auto -F"
-alias l="eza --icons --oneline ---color=auto -F"
+unalias ls 2>/dev/null
+function ls() {
+  eza --icons --color=auto -F "$@"
+}
+alias lt="ls --icons --tree --color=auto -F"
+compdef ls=ls
 
 # General aliases
 alias ..="cd .."
