@@ -18,7 +18,7 @@ M.themes = {
     setup = function()
       require("tokyonight").setup({
         style = "night",
-        transparent = true,
+        transparent = false, 
         terminal_colors = true,
       })
     end,

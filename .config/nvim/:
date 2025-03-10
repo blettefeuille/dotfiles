@@ -22,6 +22,7 @@ local function set_options()
   vim.opt.inccommand = "split"
   vim.opt.ignorecase = true
   vim.opt.breakindent = true
+  vim.opt.backspace = {"smart","eol","indent"}
 end
 
 return {
