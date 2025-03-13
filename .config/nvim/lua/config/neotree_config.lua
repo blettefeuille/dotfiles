@@ -324,6 +324,8 @@ function M.setup()
       })
 
       vim.keymap.set("n", "<leader>e", "<Cmd>Neotree reveal<CR>")
+      vim.keymap.set("n", "<C-b>", "<Cmd>Neotree toggle<CR>")
+      vim.keymap.set("i", "<C-b>", "<Cmd>Neotree toggle<CR>")
 end
 
 return M
