@@ -3,6 +3,7 @@ local M = {}
 
 function M.setup()
   local keymap = vim.keymap.set
+  local opts = { noremap = true, silent = true }
 
   -- Colorscheme (unchanged)
   keymap("n", "<leader>ct", "<cmd>lua require('config.colorscheme').set_theme(vim.fn.input('Theme: '))<CR>", { desc = "Change theme" })
@@ -20,19 +21,38 @@ function M.setup()
   keymap("n", "H", "^", { desc = "Move to start of line" })
   keymap("n", "L", "$", { desc = "Move to end of line" })
 
-  -- Scroll down/up and center cursor
-  keymap("n", "<C-d>", "<C-d>zz", { desc = "Scroll down and center" })
-  keymap("n", "<C-u>", "<C-u>zz", { desc = "Scroll up and center" })
-
-  -- Auto-paste toggle keymap
-  keymap("n", "<F2>", ":set paste!<CR>", { desc = "Toggle paste mode" })
-
   -- Keymap to copy to clipboard in visual mode
   keymap("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
+   -- Make delete not copy to default register
+  keymap("n", "d", '"_d', opts)
+  keymap("n", "D", '"_D', opts)
+  keymap("v", "d", '"_d', opts)
+  keymap("v", "D", '"_D', opts)
+  keymap("n", "x", '"_x', opts)
+  keymap("v", "x", '"_x', opts)
+  keymap("n", "c", '"_c', opts)
+  keymap("v", "c", '"_c', opts)
+  -- Déplacements classiques avec hjkl
+  keymap("i", "<C-h>", "<Left>", opts)     -- Ctrl + h : Aller à gauche
+  keymap("i", "<C-l>", "<Right>", opts)    -- Ctrl + l : Aller à droite
+  keymap("i", "<C-j>", "<Down>", opts)     -- Ctrl + j : Descendre
+  keymap("i", "<C-k>", "<Up>", opts)       -- Ctrl + k : Monter
 
-  -- Disable delete and copy (these keymaps will be disabled in normal mode)
-  keymap("n", "d", "<Nop>", { desc = "Disable delete" })
-  keymap("n", "y", "<Nop>", { desc = "Disable copy" })
+  -- Navigation mot par mot
+  keymap("i", "<C-b>", "<S-Left>", opts)   -- Ctrl + b : Aller au mot précédent
+  keymap("i", "<C-w>", "<S-Right>", opts)  -- Ctrl + w : Aller au mot suivant
+
+  -- Aller au début et à la fin de la ligne
+  keymap("i", "<C-a>", "<Home>", opts)     -- Ctrl + a : Aller au début de la ligne
+  keymap("i", "<C-e>", "<End>", opts)      -- Ctrl + e : Aller à la fin de la ligne
+
+  -- Suppression mot par mot et ligne entière
+  keymap("i", "<C-Backspace>", "<C-w>", opts) -- Ctrl + Backspace : Supprimer le mot précédent
+  keymap("i", "<C-d>", "<Del>", opts)         -- Ctrl + d : Supprimer le caractère sous le curseur
+  keymap("i", "<C-u>", "<C-o>d0", opts)       -- Ctrl + u : Supprimer jusqu'au début de la ligne
+
+  -- Alternative pour quitter le mode insert plus rapidement
+  keymap("i", "<C-c>", "<Esc>", opts)
 end
 
 return M

@@ -1,62 +1,46 @@
 return {
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
-  dependencies = {
+  -- If you want neo-tree's file operations to work with LSP (updating imports, etc.), you can use a plugin like
+  -- https://github.com/antosha417/nvim-lsp-file-operations:
+  -- {
+  --   "antosha417/nvim-lsp-file-operations",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-neo-tree/neo-tree.nvim",
+  --   },
+  --   config = function()
+  --     require("lsp-file-operations").setup()
+  --   end,
+  -- },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
-    -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-  },
-  config = function()
-    -- Require the neotree plugin
-    local neotree = require("neo-tree")
-
-    -- Configure NeoTree
-    neotree.setup({
-      -- General options for NeoTree
-      filesystem = {
-        filtered_items = {
-          visible = true,  -- Ensure all files are visible by default
-          hide_dotfiles = false,  -- Don't hide dotfiles
-          hide_gitignored = false,  -- Don't hide files listed in .gitignore
-        },
-        follow_current_file = true,  -- Follow the cursor in the file tree
+      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+      {
+        "s1n7ax/nvim-window-picker", -- for open_with_window_picker keymaps
+        version = "2.*",
+        config = function()
+          require("window-picker").setup({
+            filter_rules = {
+              include_current_win = false,
+              autoselect_one = true,
+              -- filter using buffer options
+              bo = {
+                -- if the file type is one of following, the window will be ignored
+                filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                -- if the buffer type is one of following, the window will be ignored
+                buftype = { "terminal", "quickfix" },
+              },
+            },
+          })
+        end,
       },
-
-      -- Git status integration
-      git_status = {
-        enabled = true,  -- Enable Git integration
-        show_modified = true,  -- Show modified files
-        show_staged = true,  -- Show staged files
-        show_untracked = true,  -- Show untracked files
-      },
-
-      -- Problems integration (showing warnings, errors, and info)
-      diagnostics = {
-        enabled = true,
-        show_errors = true,
-        show_warnings = true,
-        show_info = true,
-        -- You can configure the icons for different problem types here
-        icons = {
-          error = "",
-          warning = "",
-          info = "",
-        },
-      },
-
-      -- Add other sections like buffers, tags, etc., if necessary
-      buffers = {
-        visible = false,  -- Hide buffer section by default
-      },
-
-      -- Auto close the tree when opening a file
-      window = {
-        width = 40,  -- Set the width of the file tree
-        position = "left",  -- Position it to the left side
-        auto_resize = true,  -- Auto resize when possible
-      },
-    })
-  end
+    },
+    config = function ()
+        require("config.neotree_config").setup()
+    end
+  }
 }
-
