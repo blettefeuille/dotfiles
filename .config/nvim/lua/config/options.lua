@@ -4,7 +4,7 @@ local function set_options()
 
   -- Tabs & Indentation
   opt.expandtab = true
-  opt.tabstop = 4 
+  opt.tabstop = 4
   opt.softtabstop = 4
   opt.shiftwidth = 4
   opt.smartindent = true
@@ -28,7 +28,7 @@ local function set_options()
   opt.scrolloff = 10
   opt.sidescrolloff = 8
   opt.updatetime = 250 -- Faster UI responsiveness
-  opt.timeoutlen = 300 -- Faster key sequence recognition
+  opt.timeoutlen = 500 -- Faster key sequence recognition
 
   -- Clipboard & Encoding
   opt.clipboard = "unnamedplus"

@@ -39,6 +39,12 @@ function M.setup()
         keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
         keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
     end)
+    lsp_zero.set_sign_icons({
+        error = "",
+        warn = "",
+        hint = "",
+        info = "",
+    })
 end
 
 return M

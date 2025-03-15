@@ -1,55 +1,28 @@
 return {
-    'nvim-telescope/telescope.nvim',
-    cmd = 'Telescope',
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-    },
-    keys = function()
-        local lazy_telescope = function(builtin)
-            return function(...)
-                require('telescope.builtin')[builtin](...)
-            end
-        end
-        return {
-            { '<leader>fb', lazy_telescope('buffers'),                   desc = 'Find buffers' },
-            { '<leader>fd', lazy_telescope('diagnostics'),               desc = 'Find diagnostics' },
-            { '<leader>ff', lazy_telescope('git_files'),                 desc = 'Find Git files' },
-            { '<leader>fF', lazy_telescope('find_files'),                desc = 'Find files' },
-            { '<leader>fg', lazy_telescope('live_grep'),                 desc = 'Find files by content' },
-            { '<leader>fh', lazy_telescope('help_tags'),                 desc = 'Find help tags' },
-            { '<leader>fo', lazy_telescope('oldfiles'),                  desc = 'Find recently opened files' },
-            { '<leader>fw', lazy_telescope('grep_string'),               desc = 'Find word in buffer' },
-            { '<leader>f/', lazy_telescope('current_buffer_fuzzy_find'), desc = 'Find fuzzy match in current buffer' },
-        }
-    end,
-    opts = function()
-        local actions = require('telescope.actions')
-        return {
-            defaults = {
-                mappings = {
-                    i = {
-                        ['<C-n>'] = actions.cycle_history_next,
-                        ['<C-p>'] = actions.cycle_history_prev,
-                        ['<C-j>'] = actions.move_selection_next,
-                        ['<C-k>'] = actions.move_selection_previous,
-                    },
-                    n = { ['q'] = actions.close },
-                },
-                extensions = {
-                    fzf = {
-                        fuzzy = true,
-                        override_generic_sorter = true,
-                        override_file_sorter = true,
-                        case_mode = 'smart_case',
-                    }
-                },
-            }
-        }
-    end,
-    config = function(_, opts)
-        local telescope = require('telescope')
-        telescope.setup(opts)
-        telescope.load_extension('fzf')
-    end
-}
+  {
+    "nvim-telescope/telescope-ui-select.nvim",
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.5",
+    dependencies = { 
+        "nvim-lua/plenary.nvim",
 
+    },
+    config = function()
+      require("telescope").setup({
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({}),
+          },
+        },
+      })
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<C-p>", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+      vim.keymap.set("n", "<leader><leader>", builtin.oldfiles, {})
+
+      require("telescope").load_extension("ui-select")
+    end,
+  },
+}

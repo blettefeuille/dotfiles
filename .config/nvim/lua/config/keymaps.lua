@@ -1,4 +1,4 @@
--- lua/config/keymaps.lua
+--config/keymaps.lua
 local M = {}
 
 function M.setup()
@@ -21,7 +21,7 @@ function M.setup()
   keymap("n", "H", "^", { desc = "Move to start of line" })
   keymap("n", "L", "$", { desc = "Move to end of line" })
 
-  -- Keymap to copy to clipboard in visual mode
+  -- Keymap to copy to clipboard in viual mode
   keymap("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
    -- Make delete not copy to default register
   keymap("n", "d", '"_d', opts)
@@ -53,6 +53,11 @@ function M.setup()
 
   -- Alternative pour quitter le mode insert plus rapidement
   keymap("i", "<C-c>", "<Esc>", opts)
+  -- Normal mode: Resize windows
+  keymap('n', '<A-h>', '<Cmd>vertical resize +5<CR>', { desc = 'Decrease window width' })
+  keymap('n', '<A-l>', '<Cmd>vertical resize -5<CR>', { desc = 'Increase window width' })
+  keymap('n', '<A-j>', '<Cmd>resize -5<CR>', { desc = 'Decrease window height' })
+  keymap('n', '<A-k>', '<Cmd>resize +5<CR>', { desc = 'Increase window height' })
 end
 
 return M

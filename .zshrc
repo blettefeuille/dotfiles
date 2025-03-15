@@ -112,6 +112,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # Custom completion for ls (eza)
-source ~/.zsh_aliases
+source ~/.zsh_general_aliases
 
 eval "$(starship init zsh)"
