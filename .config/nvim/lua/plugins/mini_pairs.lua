@@ -1,8 +1,5 @@
-return {
-    {
-        'echasnovski/mini.pairs',
-        event = 'InsertEnter',
-        version = false,
-        config = true
-    }
-}
+return { 
+    'echasnovski/mini.pairs',
+    version = '*' ,
+    config = true,
+} 
