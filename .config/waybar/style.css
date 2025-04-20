@@ -1,0 +1,118 @@
+/* Import the Catppuccin Mocha colors */
+@import "mocha.css";
+
+* {
+    font-family: "BigBlueTerm Nerd Font", "Font Awesome 6 Free";
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+.modules-left, .modules-center, .modules-right {
+    background-color: @base;
+    color: @text;
+    border: 2px solid @overlay0;
+    padding: 0px 10px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    color: @text;
+    border-radius: 8px;
+}
+
+#workspaces button:hover {
+    background: @surface0;
+    border-radius: 8px;
+}
+
+#workspaces button.active {
+    color: @mauve;
+    background: @surface0;
+    border-radius: 8px;
+}
+
+#workspaces button.urgent {
+    color: @red;
+    background: @surface0;
+    border-radius: 8px;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#tray {
+    padding: 0 10px;
+    margin: 0 4px;
+}
+
+#window {
+    color: @lavender;
+    padding-left: 15px;
+}
+
+#clock {
+    color: @blue;
+}
+
+#battery {
+    color: @green;
+}
+
+#battery.charging {
+    color: @green;
+}
+
+#battery.warning:not(.charging) {
+    color: @yellow;
+}
+
+#battery.critical:not(.charging) {
+    color: @red;
+}
+
+#cpu {
+    color: @mauve;
+}
+
+#memory {
+    color: @peach;
+}
+
+#network {
+    color: @sapphire;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+#pulseaudio {
+    color: @pink;
+}
+
+#pulseaudio.muted {
+    color: @red;
+}
+
+#custom-wallpaper {
+  color: #f5c2e7;
+  padding: 0 12px;
+  font-size: 16px;
+}
+
+tooltip {
+    background: @base;
+    border: 2px solid @overlay0;
+}
+
+tooltip label {
+    color: @text;
+}
