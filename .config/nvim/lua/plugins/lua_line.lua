@@ -134,23 +134,18 @@ return {
 					{ "filetype", color = { fg = colors.fg } },
 				},
 				lualine_y = {
-          { lsp_status, color = { fg = colors.magenta } },
+					{ lsp_status, color = { fg = colors.magenta } },
 				},
 				lualine_z = {
-          { "progress", color = { fg = colors.bg } },
-					{
-						"location",
-						color = {
-							fg = colors.bg,
-						},
-					},
+					{ "progress", color = { fg = colors.bg } },
+					{ "location", color = { fg = colors.bg } },
 				},
 			},
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
-				lualine_c = { "filename", color = { fg = colors.overlay0 } },
-				lualine_x = { "location", color = { fg = colors.overlay0 } },
+				lualine_c = { { "filename", color = { fg = colors.overlay0 } } },
+				lualine_x = { { "location", color = { fg = colors.overlay0 } } },
 				lualine_y = {},
 				lualine_z = {},
 			},
@@ -162,7 +157,7 @@ return {
 
 		require("gitblame").setup({
 			enabled = true,
-			message_template = "   <author> • <date>",
+			message_template = " <author> • <date> ",
 			date_format = "%r",
 		})
 	end,

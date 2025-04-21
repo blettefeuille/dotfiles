@@ -21,14 +21,6 @@ return {
   },
   config = function(_, opts)
     require("image").setup(opts)
-
-    -- Auto render images when opening markdown-like files
-    vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-      pattern = { "*.md", "*.markdown", "*.quarto" },
-      callback = function()
-        require("image").render()
-      end,
-    })
   end,
 }
 
