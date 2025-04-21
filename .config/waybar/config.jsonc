@@ -1,0 +1,98 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "margin-top": 6,
+    "margin-left": 8,
+    "margin-right": 8,
+
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/wallpaper", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray"],
+
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "format-icons": {
+            "active": "•",
+            "default": "◦"
+        },
+        "on-click": "activate",
+        "all-outputs": true,
+        "show-special": false
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50,
+        "separate-outputs": true
+    },
+
+    "clock": {
+        "format": "<span color='#89b4fa'>TIME</span> <span>{:%H:%M}</span>",
+        "format-alt": "<span color='#cba6f7'>DATE</span> <span>{:%Y-%m-%d %H:%M}</span>",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "mode"
+    },
+
+    "cpu": {
+        "format": "<span color='#cba6f7'>CPU</span> <span>{usage}%</span>",
+        "tooltip": true,
+        "tooltip-format": "CPU Usage: {usage}%\nLoad: {load}"
+    },
+
+    "memory": {
+        "format": "<span color='#fab387'>MEM</span> <span>{}%</span>",
+        "tooltip": true,
+        "tooltip-format": "Used: {used:0.1f}GB\nTotal: {total:0.1f}GB"
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "<span color='#94e2d5'>TEMP</span> <span>{temperatureC}°C</span>",
+        "format-critical": "<span color='#f38ba8'>TEMP</span> <span>{temperatureC}°C</span>",
+        "tooltip": true
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "<span color='#a6e3a1'>BAT</span> <span>{capacity}%</span>",
+        "format-charging": "<span color='#a6e3a1'>CHG</span> <span>{capacity}%</span>",
+        "format-plugged": "<span color='#a6e3a1'>AC</span> <span>{capacity}%</span>",
+        "format-warning": "<span color='#f9e2af'>BAT</span> <span>{capacity}%</span>",
+        "format-critical": "<span color='#f38ba8'>BAT</span> <span>{capacity}%</span>",
+        "tooltip-format": "Remaining time: {time}\nPower draw: {power}W"
+    },
+
+    "network": {
+        "format-wifi": "<span color='#74c7ec'>WIFI</span> <span>{essid}</span>",
+        "format-ethernet": "<span color='#74c7ec'>ETH</span> <span>Connected</span>",
+        "format-disconnected": "<span color='#f38ba8'>NET</span> <span>Disconnected</span>",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz",
+        "on-click": "nm-connection-editor"
+    },
+
+    "pulseaudio": {
+        "format": "<span color='#f5c2e7'>VOL</span> <span>{volume}%</span>",
+        "format-muted": "<span color='#f38ba8'>MUTE</span> <span>0%</span>",
+        "on-click": "pavucontrol",
+        "tooltip-format": "Volume: {volume}%\nDevice: {desc}"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10,
+        "show-passive-items": true
+    },
+    
+    "custom/wallpaper": {
+        "format": "<span color='#f5e0dc'>*</span>",
+        "tooltip": "Change Wallpaper",
+        "on-click": "~/.config/hypr/scripts/button_change_wallpaper.sh",
+        "interval": 3600
+    }
+}

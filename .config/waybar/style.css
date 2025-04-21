@@ -2,7 +2,8 @@
 @import "mocha.css";
 
 * {
-    font-family: "BigBlueTerm Nerd Font", "Font Awesome 6 Free";
+    /* Keep BigBlueTerm font but prevent ligature substitution */
+    font-family: "BigBlueTerm Nerd Font", monospace;
     font-size: 13px;
     font-weight: bold;
     border-radius: 8px;
@@ -16,7 +17,8 @@ window#waybar {
     background-color: @base;
     color: @text;
     border: 2px solid @overlay0;
-    padding: 0px 10px;
+    padding: 3px 10px;
+    margin: 0 4px;
 }
 
 #workspaces button {
@@ -26,14 +28,22 @@ window#waybar {
 }
 
 #workspaces button:hover {
-    background: @surface0;
+    background: @surface1;
     border-radius: 8px;
+    transition: background 0.3s ease;
 }
 
+/* This makes active workspace dots bigger and full */
 #workspaces button.active {
     color: @mauve;
     background: @surface0;
     border-radius: 8px;
+    font-size: 16px;
+}
+
+/* Regular workspace dots are smaller and empty */
+#workspaces button {
+    font-size: 14px;
 }
 
 #workspaces button.urgent {
@@ -46,6 +56,7 @@ window#waybar {
 #battery,
 #cpu,
 #memory,
+#temperature,
 #network,
 #pulseaudio,
 #tray {
@@ -53,66 +64,60 @@ window#waybar {
     margin: 0 4px;
 }
 
+/* Add hover effects to all modules */
+#clock:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#network:hover,
+#pulseaudio:hover,
+#custom-wallpaper:hover {
+    background: @surface1;
+    transition: background 0.3s ease;
+}
+
 #window {
     color: @lavender;
     padding-left: 15px;
 }
 
-#clock {
-    color: @blue;
-}
-
-#battery {
-    color: @green;
-}
-
-#battery.charging {
-    color: @green;
-}
-
-#battery.warning:not(.charging) {
-    color: @yellow;
-}
+/* With spans in the JSON, we don't need individual module color definitions */
+/* But we keep the state-dependent styling */
 
 #battery.critical:not(.charging) {
-    color: @red;
+    animation: blink 1s infinite alternate;
 }
 
-#cpu {
-    color: @mauve;
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.5;
+    }
 }
 
-#memory {
-    color: @peach;
+#temperature.critical {
+    animation: blink 1s infinite alternate;
 }
 
-#network {
-    color: @sapphire;
-}
-
-#network.disconnected {
-    color: @red;
-}
-
-#pulseaudio {
-    color: @pink;
-}
-
-#pulseaudio.muted {
-    color: @red;
-}
-
-#custom-wallpaper {
-  color: #f5c2e7;
-  padding: 0 12px;
-  font-size: 16px;
+/* Add spacing between label and value in spans */
+span + span {
+    margin-left: 4px;
 }
 
 tooltip {
     background: @base;
     border: 2px solid @overlay0;
+    border-radius: 8px;
 }
 
 tooltip label {
     color: @text;
+    padding: 5px;
+}
+
+#custom-wallpaper {
+    padding: 0 12px;
 }
