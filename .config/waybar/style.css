@@ -2,11 +2,12 @@
 @import "mocha.css";
 
 * {
-    /* Keep BigBlueTerm font but prevent ligature substitution */
     font-family: "BigBlueTerm Nerd Font", monospace;
     font-size: 13px;
     font-weight: bold;
     border-radius: 8px;
+    transition-property: background-color;
+    transition-duration: 0.3s;
 }
 
 window#waybar {
@@ -14,110 +15,133 @@ window#waybar {
 }
 
 .modules-left, .modules-center, .modules-right {
-    background-color: @base;
+    background-color: alpha(@base, 0.90);
     color: @text;
-    border: 2px solid @overlay0;
+    border: 2px solid @mauve;
     padding: 3px 10px;
     margin: 0 4px;
 }
 
+/* Module group styling */
+.modules-center {
+    border-radius: 8px;
+}
+
+/* Workspaces */
 #workspaces button {
     padding: 0 5px;
     color: @text;
     border-radius: 8px;
-}
-
-#workspaces button:hover {
-    background: @surface1;
-    border-radius: 8px;
-    transition: background 0.3s ease;
-}
-
-/* This makes active workspace dots bigger and full */
-#workspaces button.active {
-    color: @mauve;
-    background: @surface0;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-/* Regular workspace dots are smaller and empty */
-#workspaces button {
+    background: transparent;
+    margin: 0 2px;
     font-size: 14px;
 }
-
+#workspaces button:hover {
+    background: alpha(@mauve, 0.8);
+    border-bottom: 2px solid @blue;
+    transition: all 0.3s ease;
+}
+#workspaces button.active {
+    color: @mauve;
+    background: alpha(@surface0, 0.8);
+    border-bottom: 2px solid @mauve;
+    font-size: 16px;
+    padding: 0 8px;
+}
 #workspaces button.urgent {
     color: @red;
-    background: @surface0;
-    border-radius: 8px;
+    background: alpha(@surface0, 0.8);
+    border-bottom: 2px solid @red;
+    animation: urgent-blink 1s infinite alternate;
 }
 
-#clock,
-#battery,
-#cpu,
-#memory,
-#temperature,
-#network,
-#pulseaudio,
-#tray {
+/* Modules */
+#clock, #battery, #cpu, #memory, #temperature, #network, #pulseaudio,
+#bluetooth, #custom-notification,
+#custom-launcher, #custom-power, #idle_inhibitor, #tray {
     padding: 0 10px;
+    font-size: 17px;
     margin: 0 4px;
+    min-width: 20px;
+}
+#clock:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover,
+#network:hover, #pulseaudio:hover, #bluetooth:hover, #custom-notification:hover,
+#custom-wallpaper:hover, #custom-weather:hover,
+#custom-launcher:hover, #custom-power:hover, #idle_inhibitor:hover {
+    background: alpha(@surface1, 0.8);
+    border-bottom: 2px solid @mauve;
+    transition: all 0.3s ease;
 }
 
-/* Add hover effects to all modules */
-#clock:hover,
-#battery:hover,
-#cpu:hover,
-#memory:hover,
-#temperature:hover,
-#network:hover,
-#pulseaudio:hover,
-#custom-wallpaper:hover {
-    background: @surface1;
-    transition: background 0.3s ease;
+/* Launcher/Power specific hover */
+#custom-launcher:hover, #custom-power:hover {
+    border-bottom: 2px solid @red;
 }
 
-#window {
-    color: @lavender;
-    padding-left: 15px;
+/* State-based styling */
+#battery.warning:not(.charging) {
+    color: @yellow;
+    background-color: alpha(@surface0, 0.8);
+    border-bottom: 2px solid @yellow;
+}
+#battery.critical:not(.charging),
+#memory.critical, #cpu.critical, #temperature.critical {
+    color: @red;
+    background-color: alpha(@surface0, 0.8);
+    border-bottom: 2px solid @red;
+    animation: critical-blink 1s infinite alternate;
+}
+#memory.warning, #cpu.warning {
+    background-color: alpha(@surface0, 0.8);
+    border-bottom: 2px solid @yellow;
 }
 
-/* With spans in the JSON, we don't need individual module color definitions */
-/* But we keep the state-dependent styling */
-
-#battery.critical:not(.charging) {
-    animation: blink 1s infinite alternate;
-}
-
-@keyframes blink {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0.5;
-    }
-}
-
-#temperature.critical {
-    animation: blink 1s infinite alternate;
-}
-
-/* Add spacing between label and value in spans */
+/* Layout and visual tweaks */
 span + span {
     margin-left: 4px;
 }
-
-tooltip {
-    background: @base;
-    border: 2px solid @overlay0;
+#custom-launcher, #custom-power {
+    font-size: 16px;
+    padding: 0 10px;
+}
+#clock {
     border-radius: 8px;
+    padding: 0 12px;
+    margin: 0 6px;
 }
 
+
+/* Animations */
+@keyframes critical-blink {
+    from { opacity: 1; border-bottom: 2px solid @red; }
+    to { opacity: 0.7; border-bottom: 2px solid transparent; }
+}
+@keyframes urgent-blink {
+    from { opacity: 1; border-bottom: 2px solid @red; }
+    to { opacity: 0.7; border-bottom: 2px solid transparent; }
+}
+
+/* Tooltips */
+tooltip {
+    background: alpha(@base, 0.85);
+    border: 2px solid @overlay0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
 tooltip label {
     color: @text;
-    padding: 5px;
+    padding: 8px;
 }
 
 #custom-wallpaper {
     padding: 0 12px;
 }
+
+/* Click effect */
+#clock:active, #battery:active, #cpu:active, #memory:active,
+#temperature:active, #network:active, #pulseaudio:active,
+#bluetooth:active, #custom-wallpaper:active, #custom-launcher:active,
+#custom-power:active {
+    background: alpha(@surface2, 0.8);
+}
+
