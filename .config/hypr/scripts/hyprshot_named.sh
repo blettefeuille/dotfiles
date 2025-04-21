@@ -17,6 +17,7 @@ if [[ "$FREEZE" == "freeze" ]]; then
     CMD+=(--freeze)
 fi
 
+echo "${CMD[@]}"
 # Run screenshot command
 "${CMD[@]}"
 
