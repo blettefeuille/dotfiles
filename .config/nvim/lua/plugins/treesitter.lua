@@ -20,6 +20,10 @@ return {
 				"typescript",
 				"json",
 				"yaml",
+				"rust",
+				"markdown",
+				"toml",
+				"markdown_inline",
 				"dockerfile",
 				"bash",
 				"python",
@@ -30,6 +34,7 @@ return {
 			highlight = {
 				enable = true,
 				additional_vim_regex_highlighting = false,
+				disable = { "latex" },
 			},
 			indent = {
 				enable = true,
@@ -51,6 +56,8 @@ return {
 						["af"] = "@function.outer",
 						["if"] = "@function.inner",
 						["ac"] = "@class.outer",
+						["aa"] = "@parameter.outer",
+						["ia"] = "@parameter.inner",
 						["ic"] = "@class.inner",
 					},
 				},

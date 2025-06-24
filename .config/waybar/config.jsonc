@@ -1,133 +1,156 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 30,
-    "spacing": 4,
-    "margin-top": 6,
-    "margin-left": 8,
-    "margin-right": 8,
-
-    "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["custom/wallpaper", "bluetooth", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray"],
-
-    "hyprland/workspaces": {
-        "format": "{name}",
-        "format-icons": {
-            "active": "•",
-            "default": "◦"
-        },
-        "on-click": "activate",
-        "all-outputs": true,
-        "show-special": false
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 4,
+  "margin-top": 6,
+  "margin-left": 8,
+  "margin-right": 8,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "custom/wallpaper",
+    "bluetooth",
+    "pulseaudio",
+    "network",
+    "memory",
+    "battery",
+    "tray"
+  ],
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "format-icons": {
+      "active": "•",
+      "default": "◦"
     },
-
-    "hyprland/window": {
-        "format": "<span color='#cba6f7'>{}</span>",
-        "max-length": 50,
-        "separate-outputs": true
+    "on-click": "activate",
+    "all-outputs": true,
+    "show-special": false
+  },
+  "hyprland/window": {
+    "format": "<span color='#cba6f7'>{}</span>",
+    "max-length": 50,
+    "separate-outputs": true
+  },
+  "clock": {
+    "format": "<span color='#cba6f7'>TIME</span> <span>{:%H:%M}</span>",
+    "format-alt": "<span color='#cba6f7'>DATE</span> <span>{:%Y-%m-%d %H:%M}</span>",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "on-click": "mode"
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "<span color='#cba6f7'>󰘚</span> <span>{usage}%</span>",
+    "tooltip": true,
+    "tooltip-format": "CPU Usage: {usage}%\nLoad: {load}\nGovernor: {governor}",
+    "on-click": "foot -e htop --sort-key PERCENT_CPU"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "<span color='#fab387'>MEM</span> <span>{percentage}%</span>",
+    "states": {
+      "warning": 70,
+      "critical": 90
     },
-
-    "clock": {
-        "format": "<span color='#cba6f7'>TIME</span> <span>{:%H:%M}</span>",
-        "format-alt": "<span color='#cba6f7'>DATE</span> <span>{:%Y-%m-%d %H:%M}</span>",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "on-click": "mode"
+    "tooltip": true,
+    "tooltip-format": "Used: {used:0.1f}GB\nAvailable: {avail:0.1f}GB\nTotal: {total:0.1f}GB",
+    "on-click": "foot -e htop --sort-key PERCENT_MEM"
+  },
+  "temperature": {
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    "interval": 5,
+    "format": "<span color='#94e2d5'>TEMP</span> <span>{temperatureC}°C</span>",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "tooltip": true,
+    "tooltip-format": "CPU Temperature: {temperatureC}°C\nThermal Zone: {hwmon-path}"
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
     },
-
-    "cpu": {
-        "interval": 1,
-        "format": "<span color='#cba6f7'>󰘚</span> <span>{usage}%</span>",
-        "tooltip": true,
-        "tooltip-format": "CPU Usage: {usage}%\nLoad: {load}\nGovernor: {governor}",
-        "on-click": "foot -e htop --sort-key PERCENT_CPU"
+    "format": "<span color='#a6e3a1'>{icon}</span> <span>{capacity}%</span>",
+    "format-charging": "<span color='#a6e3a1'>󰂄</span> <span>{capacity}%</span>",
+    "format-plugged": "<span color='#a6e3a1'>󰚥</span> <span>{capacity}%</span>",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+    "tooltip-format": "Remaining time: {time}\nPower draw: {power}W\nBattery health: {health}%"
+  },
+  "network": {
+    "format-wifi": "<span color='#74c7ec'>󰖩</span> <span>{essid}</span>",
+    "format-ethernet": "<span color='#74c7ec'>󰈀</span> <span>{ipaddr}</span>",
+    "format-disconnected": "<span color='#f38ba8'>󰖪</span> <span>Disconnected</span>",
+    "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}",
+    "tooltip-format-wifi": "SSID: {essid} ({signalStrength}%)\nIP: {ipaddr}/{cidr}\nFrequency: {frequency}MHz\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}",
+    "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nm-connection-editor",
+    "interval": 5
+  },
+  "bluetooth": {
+    "format": "<span color='#89b4fa'>󰂯</span>",
+    "format-disabled": "<span color='#6c7086'>󰂲</span>",
+    "format-connected": "<span color='#89b4fa'>󰂱</span> <span>{device_alias}</span>",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\nConnected to {device_alias}\nBattery: {device_battery_percentage}%"
+  },
+  "pulseaudio": {
+    "format": "<span color='#f5c2e7'>{icon}</span> <span>{volume}%</span>",
+    "format-muted": "<span color='#f38ba8'>󰖁</span> <span>Muted</span>",
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󰋎",
+      "headset": "󰋎",
+      "phone": "󰏲",
+      "portable": "󰏲",
+      "car": "󰄋",
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
     },
-
-    "memory": {
-        "interval": 5,
-        "format": "<span color='#fab387'>MEM</span> <span>{percentage}%</span>",
-        "states": {
-            "warning": 70,
-            "critical": 90
-        },
-        "tooltip": true,
-        "tooltip-format": "Used: {used:0.1f}GB\nAvailable: {avail:0.1f}GB\nTotal: {total:0.1f}GB",
-        "on-click": "foot -e htop --sort-key PERCENT_MEM"
-    },
-
-    "temperature": {
-        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        "interval": 5,
-        "format": "<span color='#94e2d5'>TEMP</span> <span>{temperatureC}°C</span>",
-        "format-icons": ["", "", "", "", ""],
-        "tooltip": true,
-        "tooltip-format": "CPU Temperature: {temperatureC}°C\nThermal Zone: {hwmon-path}"
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "<span color='#a6e3a1'>{icon}</span> <span>{capacity}%</span>",
-        "format-charging": "<span color='#a6e3a1'>󰂄</span> <span>{capacity}%</span>",
-        "format-plugged": "<span color='#a6e3a1'>󰚥</span> <span>{capacity}%</span>",
-        "format-alt": "{icon} {time}",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "tooltip-format": "Remaining time: {time}\nPower draw: {power}W\nBattery health: {health}%"
-    },
-    "network": {
-        "format-wifi": "<span color='#74c7ec'>󰖩</span> <span>{essid}</span>",
-        "format-ethernet": "<span color='#74c7ec'>󰈀</span> <span>{ipaddr}</span>",
-        "format-disconnected": "<span color='#f38ba8'>󰖪</span> <span>Disconnected</span>",
-        "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}",
-        "tooltip-format-wifi": "SSID: {essid} ({signalStrength}%)\nIP: {ipaddr}/{cidr}\nFrequency: {frequency}MHz\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}",
-        "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}",
-        "tooltip-format-disconnected": "Disconnected",
-        "on-click": "nm-connection-editor",
-        "interval": 5
-    },
-
-    "bluetooth": {
-        "format": "<span color='#89b4fa'>󰂯</span>",
-        "format-disabled": "<span color='#6c7086'>󰂲</span>",
-        "format-connected": "<span color='#89b4fa'>󰂱</span> <span>{device_alias}</span>",
-        "tooltip-format": "{controller_alias}\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\nConnected to {device_alias}\nBattery: {device_battery_percentage}%"
-    },
-
-    "pulseaudio": {
-        "format": "<span color='#f5c2e7'>{icon}</span> <span>{volume}%</span>",
-        "format-muted": "<span color='#f38ba8'>󰖁</span> <span>Muted</span>",
-        "format-icons": {
-            "headphone": "󰋋",
-            "hands-free": "󰋎",
-            "headset": "󰋎",
-            "phone": "󰏲",
-            "portable": "󰏲",
-            "car": "󰄋",
-            "default": ["󰕿", "󰖀", "󰕾"]
-        },
-        "scroll-step": 5,
-        "on-click": "pavucontrol",
-        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
-        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
-        "tooltip-format": "Volume: {volume}%\nDevice: {desc}"
-    },
-
-    "tray": {
-        "icon-size": 16,
-        "spacing": 10,
-        "show-passive-items": true
-    },
-    
-    "custom/wallpaper": {
-        "format": "<span color='#f5e0dc'>*</span>",
-        "tooltip": "Change Wallpaper",
-        "on-click": "~/.config/hypr/scripts/button_change_wallpaper.sh",
-        "interval": 3600
-    }
+    "scroll-step": 5,
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+    "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+    "tooltip-format": "Volume: {volume}%\nDevice: {desc}"
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10,
+    "show-passive-items": true
+  },
+  "custom/wallpaper": {
+    "format": "<span color='#f5e0dc'>*</span>",
+    "tooltip": "Change Wallpaper",
+    "on-click": "~/.config/hypr/scripts/button_change_wallpaper.sh",
+    "interval": 3600
+  }
 }

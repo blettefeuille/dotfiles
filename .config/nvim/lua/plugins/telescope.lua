@@ -101,6 +101,6 @@ return {
 		keymap("n", "<leader>fr", "<cmd>Telescope lsp_references<cr>", { desc = "🔗 References" })
 		keymap("n", "<leader>fi", "<cmd>Telescope lsp_implementations<cr>", { desc = "⚙️ Implementations" })
 		keymap("n", "<leader>ft", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "📐 Type Definitions" })
-
+		keymap("n", "<leader>fn", ":Telescope notify<CR>", { noremap = true, silent = true })
 	end,
 }

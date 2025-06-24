@@ -6,7 +6,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # Common tools with safer defaults
-alias rm='rm -I'  # Less intrusive than -i, asks only for 3+ files
+alias rm='rm -I' # Less intrusive than -i, asks only for 3+ files
 alias cp='cp -i'
 alias mv='mv -i'
 
@@ -16,12 +16,6 @@ alias vi='$EDITOR'
 
 # Quick access to config files
 alias zreload='source $ZDOTDIR/.zshrc'
-
-# Git shortcuts
-alias g='git'
-alias gs='git status'
-alias gc='git commit'
-alias gd='git diff'
 
 # Wayland clipboard
 alias clip='wl-copy'

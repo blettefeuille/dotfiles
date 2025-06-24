@@ -81,6 +81,11 @@ zstyle ':fzf-tab:complete:ls:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:(-parameter-|-brace-parameter-|export|unset|expand):*' \
     fzf-preview 'echo ${(P)word}'
 
+# Use single selection mode for rm, kill for safety
+zstyle ':fzf-tab:complete:rm:*' single-group default
+zstyle ':fzf-tab:complete:kill:*' single-group default
+
+
 # Special handling for ps and kill commands
 zstyle ':fzf-tab:complete:ps:*' fzf-preview 'ps -p ${word} -o pid,user,command'
 zstyle ':fzf-tab:complete:kill:*' fzf-preview 'ps -p ${word} -o pid,user,command,state'
@@ -94,10 +99,61 @@ zstyle ':fzf-tab:complete:man:*' fzf-preview 'man $word | bat --color=always -pl
 
 # Disable preview for these command groups
 zstyle ':fzf-tab:complete:git:*' fzf-preview ''
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview ''
 zstyle ':fzf-tab:complete:podman:*' fzf-preview ''
 zstyle ':fzf-tab:complete:podman-(run|images):argument-rest' fzf-preview ''
 zstyle ':fzf-tab:complete:podman-container:argument-rest' fzf-preview ''
+
+# ----- Enhanced Git Completion -----
+
+# Add git completion only when explicitly requested or when not disabled in your config
+if [[ "$ENABLE_GIT_PREVIEW" == "true" ]]; then
+  zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+    'git diff --color=always $word | grep -v "^-" | bat --style=numbers --color=always'
+  zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+    'git log --color=always $word'
+  zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
+    'git help $word | bat --plain --language=man --color=always'
+fi
+
+# Systemd service status preview
+zstyle ':fzf-tab:complete:systemctl-(status|stop|restart|start):*' fzf-preview '
+  SYSTEMD_COLORS=1 systemctl status $word'
+
+# Font preview with fontpreview (if installed)
+zstyle ':fzf-tab:complete:*:*.ttf' fzf-preview '
+  if command -v fontpreview &>/dev/null; then
+    fontpreview -s "The quick brown fox jumps over the lazy dog" $realpath | convert - -resize 400x400 sixel:-
+  else
+    echo "Font file: $realpath"
+    echo "Install fontpreview for previews"
+  fi'
+
+# Hyprland configuration file preview
+zstyle ':fzf-tab:complete:*:*hypr*conf*' fzf-preview '
+  [[ -f $realpath ]] && bat --color=always --style=numbers --language=bash $realpath || echo "Not a file"'
+
+# Preview Hyprland-related commands
+zstyle ':fzf-tab:complete:hyprctl:*' fzf-preview '
+  if [[ $group == monitors ]]; then
+    hyprctl monitors
+  elif [[ $group == workspaces ]]; then
+    hyprctl workspaces
+  elif [[ $group == clients ]]; then
+    hyprctl clients
+  else
+    echo "Hyprland command: $word"
+  fi'
+
+# Pacman and AUR helper enhancements
+zstyle ':fzf-tab:complete:pacman:*' fzf-preview 'pacman -Si $word 2>/dev/null || pacman -Qi $word 2>/dev/null || echo "Package not found"'
+
+# Support for popular AUR helpers
+if command -v paru &>/dev/null; then
+  zstyle ':fzf-tab:complete:paru:*' fzf-preview 'paru -Si $word 2>/dev/null || paru -Qi $word 2>/dev/null || echo "Package not found"'
+elif command -v yay &>/dev/null; then
+  zstyle ':fzf-tab:complete:yay:*' fzf-preview 'yay -Si $word 2>/dev/null || yay -Qi $word 2>/dev/null || echo "Package not found"'
+fi
+
 
 # Fallback - no preview for anything else
 zstyle ':fzf-tab:complete:*:*' fzf-preview ''

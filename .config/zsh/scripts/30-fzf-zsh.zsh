@@ -37,11 +37,11 @@ if [[ ! -d ~/.fzf ]] && command -v fzf >/dev/null 2>&1; then
 
   # Set up image preview script
   PREVIEW_SCRIPT="$XDG_CONFIG_HOME/fzf/image_preview.sh"
-  
+
   # Create image preview script if it doesn't exist
   if [[ ! -f "$PREVIEW_SCRIPT" ]]; then
     mkdir -p "$(dirname "$PREVIEW_SCRIPT")"
-    cat > "$PREVIEW_SCRIPT" << 'EOF'
+    cat >"$PREVIEW_SCRIPT" <<'EOF'
 #!/usr/bin/env bash
 
 file="$1"
@@ -134,26 +134,24 @@ EOF
   local fzf_scripts=(
     "/usr/share/fzf/key-bindings.zsh"
     "/usr/share/fzf/completion.zsh"
-    "/usr/share/doc/fzf/examples/key-bindings.zsh"
-    "/usr/share/doc/fzf/examples/completion.zsh"
-    "$HOME/.fzf.zsh"
   )
 
   for script in "${fzf_scripts[@]}"; do
     if [[ -f "$script" ]]; then
+      echo "$script"
       source "$script"
     fi
   done
 
   # Fallback - create our own FZF scripts if not found
-  if ! declare -f fzf-file-widget > /dev/null; then
+  if ! declare -f fzf-file-widget >/dev/null; then
     # Create key-bindings.zsh
     mkdir -p "$ZDOTDIR/scripts"
-    curl -s https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh > "$ZDOTDIR/scripts/key-bindings.zsh"
+    curl -s https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh >"$ZDOTDIR/scripts/key-bindings.zsh"
     source "$ZDOTDIR/scripts/key-bindings.zsh"
-    
+
     # Create completion.zsh
-    curl -s https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh > "$ZDOTDIR/scripts/completion.zsh"
+    curl -s https://raw.githubusercontent.com/junegunn/fzf/master/shell/completion.zsh >"$ZDOTDIR/scripts/completion.zsh"
     source "$ZDOTDIR/scripts/completion.zsh"
   fi
 

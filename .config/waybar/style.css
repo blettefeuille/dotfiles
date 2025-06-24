@@ -36,11 +36,13 @@ window#waybar {
     margin: 0 2px;
     font-size: 14px;
 }
+
 #workspaces button:hover {
     background: alpha(@mauve, 0.8);
     border-bottom: 2px solid @blue;
     transition: all 0.3s ease;
 }
+
 #workspaces button.active {
     color: @mauve;
     background: alpha(@surface0, 0.8);
@@ -48,6 +50,7 @@ window#waybar {
     font-size: 16px;
     padding: 0 8px;
 }
+
 #workspaces button.urgent {
     color: @red;
     background: alpha(@surface0, 0.8);
@@ -64,6 +67,7 @@ window#waybar {
     margin: 0 4px;
     min-width: 20px;
 }
+
 #clock:hover, #battery:hover, #cpu:hover, #memory:hover, #temperature:hover,
 #network:hover, #pulseaudio:hover, #bluetooth:hover, #custom-notification:hover,
 #custom-wallpaper:hover, #custom-weather:hover,
@@ -84,6 +88,7 @@ window#waybar {
     background-color: alpha(@surface0, 0.8);
     border-bottom: 2px solid @yellow;
 }
+
 #battery.critical:not(.charging),
 #memory.critical, #cpu.critical, #temperature.critical {
     color: @red;
@@ -91,6 +96,7 @@ window#waybar {
     border-bottom: 2px solid @red;
     animation: critical-blink 1s infinite alternate;
 }
+
 #memory.warning, #cpu.warning {
     background-color: alpha(@surface0, 0.8);
     border-bottom: 2px solid @yellow;
@@ -100,16 +106,17 @@ window#waybar {
 span + span {
     margin-left: 4px;
 }
+
 #custom-launcher, #custom-power {
     font-size: 16px;
     padding: 0 10px;
 }
+
 #clock {
     border-radius: 8px;
     padding: 0 12px;
     margin: 0 6px;
 }
-
 
 /* Animations */
 @keyframes critical-blink {
@@ -128,6 +135,7 @@ tooltip {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
+
 tooltip label {
     color: @text;
     padding: 8px;

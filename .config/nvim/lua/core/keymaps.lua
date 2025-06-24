@@ -21,7 +21,7 @@ function M.setup()
 	keymap("n", "<leader>w", ":update<CR>", { desc = "Save file" })
 	keymap("n", "<leader>q", ":quit<CR>", { desc = "Quit window" })
 	keymap("n", "<leader>x", ":qa<CR>", { desc = "Quit all" })
-  keymap("n", "s", "<Nop>")
+	keymap("n", "s", "<Nop>")
 
 	-- Move to start/end of line
 	keymap("n", "H", "^", { desc = "Move to start of line" })
@@ -38,11 +38,6 @@ function M.setup()
 	keymap("v", "x", '"_x', opts)
 	keymap("n", "c", '"_c', opts)
 	keymap("v", "c", '"_c', opts)
-	-- Déplacements classiques avec hjkl
-	keymap("i", "<C-h>", "<Left>", opts) -- Ctrl + h : Aller à gauche
-	keymap("i", "<C-l>", "<Right>", opts) -- Ctrl + l : Aller à droite
-	keymap("i", "<C-j>", "<Down>", opts) -- Ctrl + j : Descendre
-	keymap("i", "<C-k>", "<Up>", opts) -- Ctrl + k : Monter
 
 	-- Navigation mot par mot
 	keymap("i", "<C-b>", "<S-Left>", opts) -- Ctrl + b : Aller au mot précédent
@@ -64,20 +59,19 @@ function M.setup()
 	keymap("n", "<leader>n", ":bnext<CR>", { desc = "Next buffer" })
 	keymap("n", "<leader>p", ":bprevious<CR>", { desc = "Previous buffer" })
 	keymap("n", "<leader>bd", ":bd<CR>", { desc = "Close buffer" })
-  local opts = { noremap = true, silent = true }
-  -- Normal-mode commands
-  keymap('n', '<A-j>', ':MoveLine(1)<CR>', opts)
-  keymap('n', '<A-k>', ':MoveLine(-1)<CR>', opts)
-  keymap('n', '<A-h>', ':MoveHChar(-1)<CR>', opts)
-  keymap('n', '<A-l>', ':MoveHChar(1)<CR>', opts)
-  keymap('n', '<leader>wf', ':MoveWord(1)<CR>', opts)
-  keymap('n', '<leader>wb', ':MoveWord(-1)<CR>', opts)
+	-- Normal-mode commands
+	keymap("n", "<A-j>", ":MoveLine(1)<CR>", opts)
+	keymap("n", "<A-k>", ":MoveLine(-1)<CR>", opts)
+	keymap("n", "<A-h>", ":MoveHChar(-1)<CR>", opts)
+	keymap("n", "<A-l>", ":MoveHChar(1)<CR>", opts)
+	keymap("n", "<leader>wf", ":MoveWord(1)<CR>", opts)
+	keymap("n", "<leader>wb", ":MoveWord(-1)<CR>", opts)
 
-  -- Visual-mode commands
-  keymap('v', '<A-j>', ':MoveBlock(1)<CR>', opts)
-  keymap('v', '<A-k>', ':MoveBlock(-1)<CR>', opts)
-  keymap('v', '<A-h>', ':MoveHBlock(-1)<CR>', opts)
-  keymap('v', '<A-l>', ':MoveHBlock(1)<CR>', opts)
+	-- Visual-mode commands
+	keymap("v", "<A-j>", ":MoveBlock(5)<CR>", opts)
+	keymap("v", "<A-k>", ":MoveBlock(-5)<CR>", opts)
+	keymap("v", "<A-h>", ":MoveHBlock(-5)<CR>", opts)
+	keymap("v", "<A-l>", ":MoveHBlock(5)<CR>", opts)
 end
 
 return M
